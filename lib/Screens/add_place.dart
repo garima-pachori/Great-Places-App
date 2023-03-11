@@ -22,7 +22,7 @@ class _AddPlacesScreenState extends State<AddPlacesScreen> {
     _pickedImage=pickedImage;
   }
 
-  void savePlace(){
+  void _savePlace(){
     if(_titleController.text.isEmpty || _pickedImage==Null){
       return;
     }
@@ -38,7 +38,7 @@ class _AddPlacesScreenState extends State<AddPlacesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add a New Place'),
+        title: const Text('Add a New Place'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -66,7 +66,7 @@ class _AddPlacesScreenState extends State<AddPlacesScreen> {
 
           //Expanded takes all the space i.e screen-left widgets
           ElevatedButton.icon(
-            onPressed: (){}, 
+            onPressed: _savePlace, 
             icon: const Icon(
               Icons.add,
               color: Colors.black87,
@@ -78,8 +78,10 @@ class _AddPlacesScreenState extends State<AddPlacesScreen> {
               ),
             ),
             style: ElevatedButton.styleFrom(
-              elevation: 20,
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              elevation: 0,
               backgroundColor: Theme.of(context).accentColor,
+              onPrimary: Colors.black,
             ),
           )
         ],
