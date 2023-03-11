@@ -23,8 +23,11 @@ class _ImageInputState extends State<ImageInput> {
       maxWidth: 600,
     );
 
+    if(imageFile==null){
+      return;
+    }
     setState(() {
-      _storedImage=File(imageFile!.path);
+      _storedImage=File(imageFile.path);
     });
 
     final appDir=await syspaths.getApplicationDocumentsDirectory();
@@ -33,7 +36,7 @@ class _ImageInputState extends State<ImageInput> {
     //meaning they will not be deleted when the application is closed. 
     //The getApplicationDocumentsDirectory() method is provided 
     //by the path_provider package.
-    final fileName=path.basename(imageFile!.path);
+    final fileName=path.basename(imageFile.path);
     //This line of code gets the file name of the image that was picked. 
     //The basename() method is provided by the path package.
     final SavedImage=await await File(imageFile.path).copy('${appDir.path}/$fileName');
@@ -46,40 +49,43 @@ class _ImageInputState extends State<ImageInput> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Container(
-          width: 100,
-          height: 100,
-          decoration: BoxDecoration(
-            border: Border.all(
-              width: 1,
-              color: Colors.grey
-            )
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: <Widget>[
+          Container(
+            width: 140,
+            height: 140,
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 1,
+                color: Colors.grey
+              )
+            ),
+            alignment: Alignment.center,
+            child: _storedImage !=null
+              ? Image.file(
+                _storedImage!,
+                fit: BoxFit.cover, 
+                width: double.infinity,
+              ) 
+              : const Text(
+                'No image Taken!',
+                textAlign: TextAlign.center,
+               ),
           ),
-          alignment: Alignment.center,
-          child: _storedImage !=null
-            ? Image.file(
-              _storedImage!,
-              fit: BoxFit.cover, 
-              width: double.infinity,
-            ) 
-            : const Text(
-              'No image Taken!',
-              textAlign: TextAlign.center,
-             ),
-        ),
-        const SizedBox(width: 10,),
-        Expanded(
-          child: ElevatedButton.icon(
-            icon: const Icon(Icons.camera),
-            label: const Text('Take Pictures'), 
-            onPressed: () {
-              _takePictures();
-             },
-          ),
-        )
-      ],
+          const SizedBox(width: 10,),
+          Expanded(
+            child: ElevatedButton.icon(
+              icon: const Icon(Icons.camera),
+              label: const Text('Take Pictures'), 
+              onPressed: () {
+                _takePictures();
+               },
+            ),
+          )
+        ],
+      ),
     );
   }
 }
