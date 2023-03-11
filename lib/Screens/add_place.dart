@@ -78,10 +78,10 @@ class _AddPlacesScreenState extends State<AddPlacesScreen> {
               ),
             ),
             style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.black, 
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               elevation: 0,
-              backgroundColor: Theme.of(context).accentColor,
-              onPrimary: Colors.black,
+              backgroundColor: Theme.of(context).colorScheme.secondary,
             ),
           )
         ],
